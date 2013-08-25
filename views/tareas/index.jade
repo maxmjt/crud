@@ -1,0 +1,26 @@
+head
+	title= title
+	link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.css') 
+body
+
+	block content
+		h1 Mis Tareas
+		p
+		a(href='/tareas/nueva',class='sts primary') Add una Tarea
+	-	if(docs.length)
+		table(class="table table-hover")
+			tr
+				th Tarea
+				th Editar
+				th Eliminar
+				each tarea in docs
+					tr
+						td #{tarea.tarea}
+						td 
+							a.btn(href='/tareas/#{tarea.id}/editar',class="btn btn-primary") Editar
+						td
+							form(method='post', action='/tareas/'+tarea.id)
+								input(name='_method', value='DELETE', type='hidden')
+								button.btn(type='submit', class="btn btn-primary") Borrar
+	-	else
+		p No tiene ninguna tarea
